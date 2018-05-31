@@ -1,0 +1,13 @@
+Package: localGibbs
+Type: Package
+Title: Local Gibbs Movement Model
+Version: 0.1.0
+Author: Theo Michelot
+Maintainer: Theo Michelot <tmichelot1@sheffield.ac.uk>
+Description: Provides estimation and simulation functions for the local
+    Gibbs movement model.
+License: GPL-3
+Encoding: UTF-8
+Imports: Rcpp (>= 0.12.16), raster, truncdist
+LinkingTo: Rcpp, RcppArmadillo
+RoxygenNote: 6.0.1
