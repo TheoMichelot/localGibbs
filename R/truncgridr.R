@@ -8,12 +8,12 @@
 #' @param gridr Grid for Monte Carlo integration
 #' 
 #' @importFrom truncdist qtrunc
-truncgridr <- function(shape=NA, rate, ID, xy, gridr)
+truncgridr <- function(shape=NULL, rate, ID, xy, gridr)
 {
     # step lengths
     steps <- sqrt(rowSums((xy[-1,] - xy[-nrow(xy),])^2))
 
-    rdist <- ifelse(is.na(shape), "exp", "gamma")
+    rdist <- ifelse(is.null(shape), "exp", "gamma")
 
     # no contribution if first obs in track, or if missing data
     allt <- which(ID[-length(ID)]==ID[-1] & !is.na(steps))
@@ -27,7 +27,7 @@ truncgridr <- function(shape=NA, rate, ID, xy, gridr)
                         b = Inf,
                         rate = rate)
 
-        if(!is.na(shape))
+        if(!is.null(shape))
             arglist$shape <- shape
 
         tryCatch(
