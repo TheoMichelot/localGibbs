@@ -6,9 +6,8 @@
 #' @param ID Vector of track IDs
 #' @param xy Matrix of observed locations
 #' @param rdist Distribution of availability radius ("fixed", "exp", or "gamma")
-#' @param gridr Grid for Monte Carlo integration (NULL if r is fixed)
-#' @param gridc Grid for Monte Carlo integration
-#' @param gridz Grid for Monte Carlo integration
+#' @param MCgrids List of Monte Carlo samples, with components gridr (if needed), 
+#' gridc, and gridz. As output by \code{\link{MCsample}}.
 #' @param cov Array of covariates (one layer for each covariate)
 #' @param lim Limits of the covariate rasters.
 #' @param res Resolution of the covariate rasters.
@@ -16,17 +15,19 @@
 #' @export
 #' 
 #' @useDynLib localGibbs
-nllkLG <- function(par, ID=NULL, xy, rdist=c("fixed", "exp", "gamma"),
-                   gridr=NULL, gridc, gridz, cov, lim, res)
+nllkLG <- function(par, ID=NULL, xy, rdist=c("fixed", "exp", "gamma"), MCgrids, cov, lim, res)
 {
     # consider unique track if ID==NULL
     if(is.null(ID))
         ID <- rep(1,nrow(xy))
 
+    gridc <- MCgrids$gridc
+    gridz <- MCgrids$gridz
+    
     # unpack parameters
     beta <- par[1:dim(cov)[3]]
     rpar <- exp(par[-(1:dim(cov)[3])])
-
+    
     if(rdist=="exp") {
         if(length(rpar)!=1)
             stop("'par' should be of length ",dim(cov)[3] + 1)
@@ -35,6 +36,7 @@ nllkLG <- function(par, ID=NULL, xy, rdist=c("fixed", "exp", "gamma"),
         rate <- rpar[1]
         rfix <- NA
 
+        gridr <- MCgrids$gridr
         truncr <- truncgridr(shape, rate, ID, xy, gridr)
     } else if(rdist=="gamma") {
         if(length(rpar)!=2)

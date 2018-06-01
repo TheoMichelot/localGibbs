@@ -4,8 +4,8 @@
 \alias{nllkLG}
 \title{Negative log-likelihood function for the local Gibbs model}
 \usage{
-nllkLG(par, ID = NULL, xy, rdist = c("fixed", "exp", "gamma"),
-  gridr = NULL, gridc, gridz, cov, lim, res)
+nllkLG(par, ID = NULL, xy, rdist = c("fixed", "exp", "gamma"), MCgrids, cov,
+  lim, res)
 }
 \arguments{
 \item{par}{Vector of parameters, i.e. resource selection coefficients and
@@ -17,11 +17,8 @@ parameters for the distribution of the radius.}
 
 \item{rdist}{Distribution of availability radius ("fixed", "exp", or "gamma")}
 
-\item{gridr}{Grid for Monte Carlo integration (NULL if r is fixed)}
-
-\item{gridc}{Grid for Monte Carlo integration}
-
-\item{gridz}{Grid for Monte Carlo integration}
+\item{MCgrids}{List of Monte Carlo samples, with components gridr (if needed), 
+gridc, and gridz. As output by \code{\link{MCsample}}.}
 
 \item{cov}{Array of covariates (one layer for each covariate)}
 
