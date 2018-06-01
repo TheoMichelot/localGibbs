@@ -25,40 +25,31 @@ nllkLG <- function(par, ID=NULL, xy, rdist=c("fixed", "exp", "gamma"), MCgrids, 
     gridz <- MCgrids$gridz
     
     # unpack parameters
-    beta <- par[1:dim(cov)[3]]
-    rpar <- exp(par[-(1:dim(cov)[3])])
+    tpar <- w2n(wpar=par, rdist=rdist, xy=xy)
+    beta <- tpar$beta
+    r <- tpar$r
+    shape <- tpar$shape
+    rate <- tpar$rate
+    
+    if(length(beta)!=dim(cov)[3])
+        stop("Wrong number of parameters provided")
     
     if(rdist=="exp") {
-        if(length(rpar)!=1)
-            stop("'par' should be of length ",dim(cov)[3] + 1)
-        
-        shape <- NA
-        rate <- rpar[1]
-        rfix <- NA
-
         gridr <- MCgrids$gridr
         truncr <- truncgridr(shape, rate, ID, xy, gridr)
     } else if(rdist=="gamma") {
-        if(length(rpar)!=2)
-            stop("'par' should be of length ",dim(cov)[3] + 2)
-        
-        shape <- rpar[1]
-        rate <- rpar[2]
-        rfix <- NA
-
         truncr <- truncgridr(shape, rate, ID, xy, gridr)
     } else if(rdist=="fixed") {
-        if(length(rpar)!=1)
-            stop("'par' should be of length ",dim(cov)[3] + 1)
-        
-        shape <- NA
-        rate <- NA
-        steps <- sqrt(rowSums((xy[-nrow(xy),]-xy[-1,])^2))
-        rfix <- rpar[1] + max(steps,na.rm=TRUE)/2
-
-        truncr <- matrix(rfix, nrow=nrow(xy)-1, ncol=1)
+        truncr <- matrix(r, nrow=nrow(xy)-1, ncol=1)
     }
-
+    
+    # Rcpp doesn't cope with NULL
+    if(is.null(shape))
+        shape <- NA
+    if(is.null(rate))
+        rate <- NA
+    
+    # compute negative log-likelihood in C++
     nllk <- nllkLG_rcpp(beta=beta, shape=shape, rate=rate, ID=ID, xy=xy, rdist=rdist,
                         truncr=truncr, gridc=gridc, gridz=gridz, cov=cov, lim=lim, res=res)
 
