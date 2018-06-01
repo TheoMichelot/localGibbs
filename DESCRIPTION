@@ -8,6 +8,6 @@ Description: Provides estimation and simulation functions for the local
     Gibbs movement model.
 License: GPL-3
 Encoding: UTF-8
-Imports: Rcpp (>= 0.12.16), raster, truncdist
+Imports: Rcpp (>= 0.12.16), raster, truncdist, lhs
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 6.0.1
