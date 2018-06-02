@@ -34,13 +34,11 @@ nllkLG <- function(par, ID=NULL, xy, rdist=c("fixed", "exp", "gamma"), MCgrids, 
     if(length(beta)!=dim(cov)[3])
         stop("Wrong number of parameters provided")
     
-    if(rdist=="exp") {
+    if(rdist=="fixed") {
+        truncr <- matrix(r, nrow=nrow(xy)-1, ncol=1)
+    } else {
         gridr <- MCgrids$gridr
         truncr <- truncgridr(shape, rate, ID, xy, gridr)
-    } else if(rdist=="gamma") {
-        truncr <- truncgridr(shape, rate, ID, xy, gridr)
-    } else if(rdist=="fixed") {
-        truncr <- matrix(r, nrow=nrow(xy)-1, ncol=1)
     }
     
     # Rcpp doesn't cope with NULL
