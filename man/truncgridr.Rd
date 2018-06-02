@@ -4,7 +4,7 @@
 \alias{truncgridr}
 \title{Truncate the sample of avilability radii}
 \usage{
-truncgridr(shape = NA, rate, ID, xy, gridr)
+truncgridr(shape = NULL, rate, ID, xy, gridr)
 }
 \arguments{
 \item{shape}{Shape parameter of r distribution (NA if r~exp)}
