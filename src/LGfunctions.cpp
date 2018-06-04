@@ -252,6 +252,7 @@ arma::mat simLG_rcpp(int nbObs, arma::vec beta, arma::vec allr, arma::cube& cov,
 //' @param anglebreaks Vector of probabilities for intervals of the range of turning angles
 //' 
 //' @return Matrix of simulated locations
+//' @export
 // [[Rcpp::export]]
 arma::mat simSSF_rcpp(int nbObs, arma::vec beta, arma::rowvec xy1, arma::rowvec xy2, int nzeros,
                       arma::cube cov, arma::vec lim, arma::vec res, arma::vec stepprobs, 

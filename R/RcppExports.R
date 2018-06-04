@@ -73,6 +73,7 @@ simLG_rcpp <- function(nbObs, beta, allr, cov, xy0, lim, res) {
 #' @param anglebreaks Vector of probabilities for intervals of the range of turning angles
 #' 
 #' @return Matrix of simulated locations
+#' @export
 simSSF_rcpp <- function(nbObs, beta, xy1, xy2, nzeros, cov, lim, res, stepprobs, stepbreaks, angleprobs, anglebreaks) {
     .Call('_localGibbs_simSSF_rcpp', PACKAGE = 'localGibbs', nbObs, beta, xy1, xy2, nzeros, cov, lim, res, stepprobs, stepbreaks, angleprobs, anglebreaks)
 }
