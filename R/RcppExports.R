@@ -57,3 +57,35 @@ simLG_rcpp <- function(nbObs, beta, allr, cov, xy0, lim, res) {
     .Call('_localGibbs_simLG_rcpp', PACKAGE = 'localGibbs', nbObs, beta, allr, cov, xy0, lim, res)
 }
 
+#' SSF simulation function (Fortin et al 2005)
+#' 
+#' @param nbObs Number of observations
+#' @param beta Vector of resource selection coefficients
+#' @param xy1 First location
+#' @param xy2 Second location
+#' @param nzeros Number of zeros (unused steps) to sample for each step
+#' @param cov Array of covariates (one layer for each covariate)
+#' @param lim Limits of map
+#' @param res Resolution of map
+#' @param stepprobs Vector of probabilities for intervals of the range of step lengths
+#' @param stepbreaks Vector of bounds for intervals of the range of step lengths
+#' @param angleprobs Vector of probabilities for intervals of the range of turning angles
+#' @param anglebreaks Vector of probabilities for intervals of the range of turning angles
+#' 
+#' @return Matrix of simulated locations
+simSSF_rcpp <- function(nbObs, beta, xy1, xy2, nzeros, cov, lim, res, stepprobs, stepbreaks, angleprobs, anglebreaks) {
+    .Call('_localGibbs_simSSF_rcpp', PACKAGE = 'localGibbs', nbObs, beta, xy1, xy2, nzeros, cov, lim, res, stepprobs, stepbreaks, angleprobs, anglebreaks)
+}
+
+#' Sample zeros for SSF
+#' 
+#' @param nzeros Number of zeros for each observed location
+#' @param xy Matrix of observed locations
+#' @param stepprobs Vector of probabilities for intervals of the range of step lengths
+#' @param stepbreaks Vector of bounds for intervals of the range of step lengths
+#' @param angleprobs Vector of probabilities for intervals of the range of turning angles
+#' @param anglebreaks Vector of probabilities for intervals of the range of turning angles
+simZeros_rcpp <- function(nzeros, xy, stepprobs, stepbreaks, angleprobs, anglebreaks) {
+    .Call('_localGibbs_simZeros_rcpp', PACKAGE = 'localGibbs', nzeros, xy, stepprobs, stepbreaks, angleprobs, anglebreaks)
+}
+

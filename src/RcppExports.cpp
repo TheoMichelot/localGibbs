@@ -75,3 +75,41 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// simSSF_rcpp
+arma::mat simSSF_rcpp(int nbObs, arma::vec beta, arma::rowvec xy1, arma::rowvec xy2, int nzeros, arma::cube cov, arma::vec lim, arma::vec res, arma::vec stepprobs, arma::vec stepbreaks, arma::vec angleprobs, arma::vec anglebreaks);
+RcppExport SEXP _localGibbs_simSSF_rcpp(SEXP nbObsSEXP, SEXP betaSEXP, SEXP xy1SEXP, SEXP xy2SEXP, SEXP nzerosSEXP, SEXP covSEXP, SEXP limSEXP, SEXP resSEXP, SEXP stepprobsSEXP, SEXP stepbreaksSEXP, SEXP angleprobsSEXP, SEXP anglebreaksSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type nbObs(nbObsSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type beta(betaSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type xy1(xy1SEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type xy2(xy2SEXP);
+    Rcpp::traits::input_parameter< int >::type nzeros(nzerosSEXP);
+    Rcpp::traits::input_parameter< arma::cube >::type cov(covSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type lim(limSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type res(resSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type stepprobs(stepprobsSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type stepbreaks(stepbreaksSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type angleprobs(angleprobsSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type anglebreaks(anglebreaksSEXP);
+    rcpp_result_gen = Rcpp::wrap(simSSF_rcpp(nbObs, beta, xy1, xy2, nzeros, cov, lim, res, stepprobs, stepbreaks, angleprobs, anglebreaks));
+    return rcpp_result_gen;
+END_RCPP
+}
+// simZeros_rcpp
+arma::mat simZeros_rcpp(int nzeros, arma::mat xy, arma::vec stepprobs, arma::vec stepbreaks, arma::vec angleprobs, arma::vec anglebreaks);
+RcppExport SEXP _localGibbs_simZeros_rcpp(SEXP nzerosSEXP, SEXP xySEXP, SEXP stepprobsSEXP, SEXP stepbreaksSEXP, SEXP angleprobsSEXP, SEXP anglebreaksSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type nzeros(nzerosSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type xy(xySEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type stepprobs(stepprobsSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type stepbreaks(stepbreaksSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type angleprobs(angleprobsSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type anglebreaks(anglebreaksSEXP);
+    rcpp_result_gen = Rcpp::wrap(simZeros_rcpp(nzeros, xy, stepprobs, stepbreaks, angleprobs, anglebreaks));
+    return rcpp_result_gen;
+END_RCPP
+}
