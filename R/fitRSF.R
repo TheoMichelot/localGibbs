@@ -7,6 +7,8 @@
 #' @param covlist List of covariate rasters
 #' @param nbin Number of bins in each dimension for Poisson GLM
 #' @param nzeros Number of zeros to sample for logistic regression
+#' @param buffsize Size of buffer around the observed locations from which
+#' control locations should be sampled, if method='logit'.
 #' 
 #' @return Output of glm
 #' 
@@ -15,7 +17,7 @@
 #' @importFrom stats binomial glm
 #' @importFrom raster extent extract
 #' @export
-fitRSF <- function(xy, method=c("poisson","logit"), covlist, nbin=NULL, nzeros=NULL)
+fitRSF <- function(xy, method=c("poisson","logit"), covlist, nbin=NULL, nzeros=NULL, buffsize=NULL)
 {
     lim <- as.vector(extent(covlist[[1]]))
  
@@ -39,7 +41,24 @@ fitRSF <- function(xy, method=c("poisson","logit"), covlist, nbin=NULL, nzeros=N
         
         modRSF <- glm(countsLG~., data=RSFdata, family="poisson")
     } else if(method=="logit") {
-        xyzeros <- matrix(c(runif(nzeros,lim[1],lim[2]), runif(nzeros,lim[3],lim[4])), ncol=2)
+        
+        if(is.null(buffsize)) {
+            xyzeros <- matrix(c(runif(nzeros,lim[1],lim[2]), runif(nzeros,lim[3],lim[4])), ncol=2)            
+        } else {
+            xyzeros <- matrix(NA, nzeros, 2)
+            obslim <- c(range(xy[,1],na.rm=TRUE), range(xy[,2],na.rm=TRUE))
+            k <- 1
+            while(k <= nzeros) {
+                if(k%%100==0)
+                    cat("\rSampling zeros... ", k, "/", nzeros, sep="")
+                z <- runif(2, c(obslim[1], obslim[3])-buffsize, c(obslim[2], obslim[4])+buffsize)
+                d <- sqrt(colSums((t(xy)-z)^2))
+                if(min(d,na.rm=TRUE) < buffsize) {
+                    xyzeros[k,] <- z
+                    k <- k + 1
+                }
+            }
+        }
         
         # extract cov values in cells
         allcov <- lapply(covlist, extract, y=rbind(xy,xyzeros))

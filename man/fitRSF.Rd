@@ -5,7 +5,7 @@
 \title{Fit RSF}
 \usage{
 fitRSF(xy, method = c("poisson", "logit"), covlist, nbin = NULL,
-  nzeros = NULL)
+  nzeros = NULL, buffsize = NULL)
 }
 \arguments{
 \item{xy}{Matrix of observed locations}
@@ -18,6 +18,9 @@ Poisson GLM, or "logit" for a logistic regression}
 \item{nbin}{Number of bins in each dimension for Poisson GLM}
 
 \item{nzeros}{Number of zeros to sample for logistic regression}
+
+\item{buffsize}{Size of buffer around the observed locations from which
+control locations should be sampled, if method='logit'.}
 }
 \value{
 Output of glm
