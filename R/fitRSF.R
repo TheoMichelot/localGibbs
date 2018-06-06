@@ -58,6 +58,7 @@ fitRSF <- function(xy, method=c("poisson","logit"), covlist, nbin=NULL, nzeros=N
                     k <- k + 1
                 }
             }
+            cat("\n")
         }
         
         # extract cov values in cells
