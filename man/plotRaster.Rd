@@ -4,7 +4,7 @@
 \alias{plotRaster}
 \title{Plot raster with ggplot}
 \usage{
-plotRaster(rast, xy = NULL, norm = FALSE, log = FALSE)
+plotRaster(rast, xy = NULL, norm = FALSE, log = FALSE, name = "")
 }
 \arguments{
 \item{rast}{Raster object}
@@ -14,6 +14,8 @@ plotRaster(rast, xy = NULL, norm = FALSE, log = FALSE)
 \item{norm}{Logical. Should the raster be normalized to integrate to 1?}
 
 \item{log}{Logical. Should the raster be plotted on the log scale?}
+
+\item{name}{Name of the scale}
 }
 \description{
 Plot raster with ggplot
