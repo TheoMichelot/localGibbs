@@ -6,6 +6,28 @@
 
 using namespace Rcpp;
 
+// nllkLG_rcpp
+double nllkLG_rcpp(arma::vec beta, double shape, double rate, arma::vec ID, arma::mat xy, std::string rdist, arma::mat truncr, arma::mat gridc, arma::mat gridz, arma::cube& cov, arma::vec lim, arma::vec res);
+RcppExport SEXP _localGibbs_nllkLG_rcpp(SEXP betaSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP IDSEXP, SEXP xySEXP, SEXP rdistSEXP, SEXP truncrSEXP, SEXP gridcSEXP, SEXP gridzSEXP, SEXP covSEXP, SEXP limSEXP, SEXP resSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type beta(betaSEXP);
+    Rcpp::traits::input_parameter< double >::type shape(shapeSEXP);
+    Rcpp::traits::input_parameter< double >::type rate(rateSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type ID(IDSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type xy(xySEXP);
+    Rcpp::traits::input_parameter< std::string >::type rdist(rdistSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type truncr(truncrSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type gridc(gridcSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type gridz(gridzSEXP);
+    Rcpp::traits::input_parameter< arma::cube& >::type cov(covSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type lim(limSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type res(resSEXP);
+    rcpp_result_gen = Rcpp::wrap(nllkLG_rcpp(beta, shape, rate, ID, xy, rdist, truncr, gridc, gridz, cov, lim, res));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rsf
 double rsf(arma::rowvec xy, arma::vec beta, arma::cube& cov, arma::vec lim, arma::vec res);
 RcppExport SEXP _localGibbs_rsf(SEXP xySEXP, SEXP betaSEXP, SEXP covSEXP, SEXP limSEXP, SEXP resSEXP) {
@@ -33,28 +55,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::rowvec >::type xy0(xy0SEXP);
     Rcpp::traits::input_parameter< arma::rowvec >::type xy1(xy1SEXP);
     rcpp_result_gen = Rcpp::wrap(scalez(gridc, gridz, r, xy0, xy1));
-    return rcpp_result_gen;
-END_RCPP
-}
-// nllkLG_rcpp
-double nllkLG_rcpp(arma::vec beta, double shape, double rate, arma::vec ID, arma::mat xy, std::string rdist, arma::mat truncr, arma::mat gridc, arma::mat gridz, arma::cube& cov, arma::vec lim, arma::vec res);
-RcppExport SEXP _localGibbs_nllkLG_rcpp(SEXP betaSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP IDSEXP, SEXP xySEXP, SEXP rdistSEXP, SEXP truncrSEXP, SEXP gridcSEXP, SEXP gridzSEXP, SEXP covSEXP, SEXP limSEXP, SEXP resSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type beta(betaSEXP);
-    Rcpp::traits::input_parameter< double >::type shape(shapeSEXP);
-    Rcpp::traits::input_parameter< double >::type rate(rateSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type ID(IDSEXP);
-    Rcpp::traits::input_parameter< arma::mat >::type xy(xySEXP);
-    Rcpp::traits::input_parameter< std::string >::type rdist(rdistSEXP);
-    Rcpp::traits::input_parameter< arma::mat >::type truncr(truncrSEXP);
-    Rcpp::traits::input_parameter< arma::mat >::type gridc(gridcSEXP);
-    Rcpp::traits::input_parameter< arma::mat >::type gridz(gridzSEXP);
-    Rcpp::traits::input_parameter< arma::cube& >::type cov(covSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type lim(limSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type res(resSEXP);
-    rcpp_result_gen = Rcpp::wrap(nllkLG_rcpp(beta, shape, rate, ID, xy, rdist, truncr, gridc, gridz, cov, lim, res));
     return rcpp_result_gen;
 END_RCPP
 }

@@ -1,0 +1,57 @@
+#include<RcppArmadillo.h>
+// [[Rcpp::depends(RcppArmadillo)]]
+#include "rsf.hpp"
+#include "sample.hpp"
+
+//' Simulation function (local Gibbs sampler)
+//'
+//' @param nbObs Number of observations
+//' @param beta Vector of resource selection coefficients
+//' @param allr Vector of radii for movement kernel (of length nbObs)
+//' @param cov Array of covariates (one layer for each covariate)
+//' @param xy0 Initial location
+//' @param lim Limits of map
+//' @param res Resolution of map
+//' @export
+// [[Rcpp::export]]
+arma::mat simLG_rcpp(int nbObs, arma::vec beta, arma::vec allr, arma::cube& cov,
+                     arma::rowvec xy0, arma::vec lim, arma::vec res)
+{
+    if(xy0(0)<lim(0) || xy0(0)>lim(1) || xy0(1)<lim(2) || xy0(1)>lim(3))
+        Rcpp::stop("The initial location must be within the limits of the map.");
+    
+    arma::mat xy(nbObs,2);
+    xy.zeros();
+    xy.row(0) = xy0;
+    
+    double d, a;
+    arma::rowvec C(2);
+    arma::mat grid(100,2);
+    arma::vec allrsf(100);
+    
+    int t = 1;
+    while(t<nbObs) {
+        d = sqrt(R::runif(0,allr(t)*allr(t)));
+        a = R::runif(-M_PI,M_PI);
+        // centre of disc
+        C(0) = xy(t-1,0) + d*cos(a);
+        C(1) = xy(t-1,1) + d*sin(a);
+        
+        // sample 100 points in the circle
+        for(int i=0; i<100; i++) {
+            d = sqrt(R::runif(0,allr(t)*allr(t)));
+            a = R::runif(-M_PI,M_PI);
+            grid(i,0) = C(0) + d * cos(a);
+            grid(i,1) = C(1) + d * sin(a);
+            allrsf(i) = rsf(grid.row(i),beta,cov,lim,res);
+        }
+        
+        if(sum(allrsf)>0) {
+            int ind = sample(allrsf/sum(allrsf));
+            xy.row(t) = grid.row(ind);
+            t = t+1;
+        }
+    }
+    
+    return xy;
+}
