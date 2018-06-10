@@ -2,7 +2,9 @@
 
 This R package implements simulation and estimation functions for the local Gibbs movement model described in:
 
-_Michelot, T., Blackwell, P.G., Matthiopoulos, J. (preprint). [Linking resource selection and step selection models for habitat preferences in animals](https://arxiv.org/abs/1708.08426). arXiv:1708.08426._
+Michelot, T., Blackwell, P.G., Matthiopoulos, J. (preprint).  
+["Linking resource selection and step selection models for habitat preferences in animals"](https://arxiv.org/abs/1708.08426).  
+_Arxiv_. arXiv:1708.08426.
 
 ### Example code
 
