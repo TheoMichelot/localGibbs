@@ -9,6 +9,7 @@
 #' @param light Logical. If TRUE, the plot is minimalistic.
 #' 
 #' @importFrom ggplot2 ggplot geom_raster coord_equal geom_point geom_path aes_string
+#' theme element_blank
 #' @importFrom viridis scale_fill_viridis
 #' @importFrom raster xres yres values 
 #' @importFrom sp coordinates
