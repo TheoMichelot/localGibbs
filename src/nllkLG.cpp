@@ -18,7 +18,7 @@
 //' @param lim Limits of the covariate rasters.
 //' @param res Resolution of the covariate rasters.
 // [[Rcpp::export]]
-double nllkLG_rcpp(arma::vec beta, double shape, double rate, arma::vec ID, arma::mat xy,
+Rcpp::List nllkLG_rcpp(arma::vec beta, double shape, double rate, arma::vec ID, arma::mat xy,
                    std::string rdist, arma::mat truncr, arma::mat gridc, arma::mat gridz,
                    arma::cube& cov, arma::vec lim, arma::vec res)
 {
@@ -34,6 +34,7 @@ double nllkLG_rcpp(arma::vec beta, double shape, double rate, arma::vec ID, arma
     int count = 0;
     int nz = gridz.n_rows;
     
+    arma::vec logpall(nbObs-1);
     double llk = 0;
     for(int t=1; t<nbObs; t++) {
         // no contribution if first location of a track or if missing data
@@ -79,9 +80,11 @@ double nllkLG_rcpp(arma::vec beta, double shape, double rate, arma::vec ID, arma
             double logp = log(nz) + log(rsf(xy.row(t),beta,cov,lim,res)) -
                 log(nr) + rlogCDF + log(sum(allp));
             
+            logpall(t-1) = logp;
             llk = llk + logp;
         }
     }
     
-    return -llk;
+    return Rcpp::List::create(Rcpp::Named("nllk") = -llk, 
+                              Rcpp::Named("logp") = logpall);
 }

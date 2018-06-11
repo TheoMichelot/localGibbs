@@ -7,7 +7,7 @@
 using namespace Rcpp;
 
 // nllkLG_rcpp
-double nllkLG_rcpp(arma::vec beta, double shape, double rate, arma::vec ID, arma::mat xy, std::string rdist, arma::mat truncr, arma::mat gridc, arma::mat gridz, arma::cube& cov, arma::vec lim, arma::vec res);
+Rcpp::List nllkLG_rcpp(arma::vec beta, double shape, double rate, arma::vec ID, arma::mat xy, std::string rdist, arma::mat truncr, arma::mat gridc, arma::mat gridz, arma::cube& cov, arma::vec lim, arma::vec res);
 RcppExport SEXP _localGibbs_nllkLG_rcpp(SEXP betaSEXP, SEXP shapeSEXP, SEXP rateSEXP, SEXP IDSEXP, SEXP xySEXP, SEXP rdistSEXP, SEXP truncrSEXP, SEXP gridcSEXP, SEXP gridzSEXP, SEXP covSEXP, SEXP limSEXP, SEXP resSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

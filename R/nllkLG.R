@@ -20,7 +20,49 @@ nllkLG <- function(par, ID=NULL, xy, rdist=c("fixed", "exp", "gamma"), MCgrids, 
     # consider unique track if ID==NULL
     if(is.null(ID))
         ID <- rep(1,nrow(xy))
+    
+    gridc <- MCgrids$gridc
+    gridz <- MCgrids$gridz
+    
+    # unpack parameters
+    tpar <- w2n(wpar=par, rdist=rdist, xy=xy)
+    beta <- tpar$beta
+    r <- tpar$r
+    shape <- tpar$shape
+    rate <- tpar$rate
+    
+    if(length(beta)!=dim(cov)[3])
+        stop("Wrong number of parameters provided")
+    
+    if(rdist=="fixed") {
+        truncr <- matrix(r, nrow=nrow(xy)-1, ncol=1)
+    } else {
+        gridr <- MCgrids$gridr
+        truncr <- truncgridr(shape, rate, ID, xy, gridr)
+    }
+    
+    # Rcpp doesn't cope with NULL
+    if(is.null(shape))
+        shape <- NA
+    if(is.null(rate))
+        rate <- NA
+    
+    # compute negative log-likelihood in C++
+    nllk <- nllkLG_rcpp(beta=beta, shape=shape, rate=rate, ID=ID, xy=xy, rdist=rdist,
+                        truncr=truncr, gridc=gridc, gridz=gridz, cov=cov, lim=lim, res=res)$nllk
+    
+    return(nllk)
+}
 
+
+#' Negative log-likelihood function for the local Gibbs model (debug version)
+#' @export
+nllkLG_debug <- function(par, ID=NULL, xy, rdist=c("fixed", "exp", "gamma"), MCgrids, cov, lim, res)
+{
+    # consider unique track if ID==NULL
+    if(is.null(ID))
+        ID <- rep(1,nrow(xy))
+    
     gridc <- MCgrids$gridc
     gridz <- MCgrids$gridz
     
@@ -50,6 +92,6 @@ nllkLG <- function(par, ID=NULL, xy, rdist=c("fixed", "exp", "gamma"), MCgrids, 
     # compute negative log-likelihood in C++
     nllk <- nllkLG_rcpp(beta=beta, shape=shape, rate=rate, ID=ID, xy=xy, rdist=rdist,
                         truncr=truncr, gridc=gridc, gridz=gridz, cov=cov, lim=lim, res=res)
-
+    
     return(nllk)
 }
