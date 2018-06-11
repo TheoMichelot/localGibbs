@@ -4,7 +4,8 @@
 \alias{plotRaster}
 \title{Plot raster with ggplot}
 \usage{
-plotRaster(rast, xy = NULL, norm = FALSE, log = FALSE, name = "")
+plotRaster(rast, xy = NULL, norm = FALSE, log = FALSE, name = "",
+  light = FALSE)
 }
 \arguments{
 \item{rast}{Raster object}
@@ -16,6 +17,8 @@ plotRaster(rast, xy = NULL, norm = FALSE, log = FALSE, name = "")
 \item{log}{Logical. Should the raster be plotted on the log scale?}
 
 \item{name}{Name of the scale}
+
+\item{light}{Logical. If TRUE, the plot is minimalistic.}
 }
 \description{
 Plot raster with ggplot
