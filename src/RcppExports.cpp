@@ -43,6 +43,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rsfvec
+arma::vec rsfvec(arma::mat xy, arma::vec beta, arma::cube& cov, arma::vec lim, arma::vec res);
+RcppExport SEXP _localGibbs_rsfvec(SEXP xySEXP, SEXP betaSEXP, SEXP covSEXP, SEXP limSEXP, SEXP resSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type xy(xySEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type beta(betaSEXP);
+    Rcpp::traits::input_parameter< arma::cube& >::type cov(covSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type lim(limSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type res(resSEXP);
+    rcpp_result_gen = Rcpp::wrap(rsfvec(xy, beta, cov, lim, res));
+    return rcpp_result_gen;
+END_RCPP
+}
 // scalez
 arma::mat scalez(arma::mat gridc, arma::mat gridz, double r, arma::rowvec xy0, arma::rowvec xy1);
 RcppExport SEXP _localGibbs_scalez(SEXP gridcSEXP, SEXP gridzSEXP, SEXP rSEXP, SEXP xy0SEXP, SEXP xy1SEXP) {

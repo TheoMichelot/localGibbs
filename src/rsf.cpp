@@ -3,7 +3,7 @@
 
 //' Resource selection function
 //'
-//' @param xy Matrix of points where the RSF should be evaluated
+//' @param xy Location where the RSF should be evaluated
 //' @param beta Vector of resource selection coefficients
 //' @param cov Array of covariates (one layer for each covariate)
 //' @param lim Four values: x min, x max, y min, y max
@@ -35,4 +35,25 @@ double rsf(arma::rowvec xy, arma::vec beta, arma::cube& cov, arma::vec lim, arma
     
     double reg = sum(covxy%beta);
     return exp(reg);
+}
+
+//' Resource selection function (vectorized for xy)
+//' 
+//' @param xy Matrix of points where the RSF should be evaluated
+//' @param beta Vector of resource selection coefficients
+//' @param cov Array of covariates (one layer for each covariate)
+//' @param lim Four values: x min, x max, y min, y max
+//' @param res Two values: resolution in x, and resolution in y
+//' 
+//' @export
+// [[Rcpp::export]]
+arma::vec rsfvec(arma::mat xy, arma::vec beta, arma::cube& cov, arma::vec lim, arma::vec res)
+{
+    int nbObs = xy.n_rows;
+    arma::vec allrsf(nbObs);
+    
+    for(int i=0; i<nbObs; i++)
+        allrsf(i) = rsf(xy.row(i), beta, cov, lim, res);
+    
+    return allrsf;
 }

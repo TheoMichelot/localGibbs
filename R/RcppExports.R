@@ -21,13 +21,26 @@ nllkLG_rcpp <- function(beta, shape, rate, ID, xy, rdist, truncr, gridc, gridz, 
 
 #' Resource selection function
 #'
-#' @param xy Matrix of points where the RSF should be evaluated
+#' @param xy Location where the RSF should be evaluated
 #' @param beta Vector of resource selection coefficients
 #' @param cov Array of covariates (one layer for each covariate)
 #' @param lim Four values: x min, x max, y min, y max
 #' @param res Two values: resolution in x, and resolution in y
 rsf <- function(xy, beta, cov, lim, res) {
     .Call('_localGibbs_rsf', PACKAGE = 'localGibbs', xy, beta, cov, lim, res)
+}
+
+#' Resource selection function (vectorized for xy)
+#' 
+#' @param xy Matrix of points where the RSF should be evaluated
+#' @param beta Vector of resource selection coefficients
+#' @param cov Array of covariates (one layer for each covariate)
+#' @param lim Four values: x min, x max, y min, y max
+#' @param res Two values: resolution in x, and resolution in y
+#' 
+#' @export
+rsfvec <- function(xy, beta, cov, lim, res) {
+    .Call('_localGibbs_rsfvec', PACKAGE = 'localGibbs', xy, beta, cov, lim, res)
 }
 
 #' Scale Monte Carlo sample of end points
