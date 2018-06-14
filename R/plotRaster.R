@@ -33,7 +33,7 @@ plotRaster <- function(rast, xy=NULL, norm=FALSE, log=FALSE, name="", light=FALS
     if(!is.null(xy)) {
         xydf <- data.frame(x=xy[,1], y=xy[,2])
         p <- p + geom_point(aes_string(x="x",y="y"), data=xydf, size=0.3) +
-            geom_path(aes_string(x="x",y="y"), data=xydf, size=0.5)
+            geom_path(aes_string(x="x",y="y"), data=xydf, size=0.3)
     }
     
     if(light) {
