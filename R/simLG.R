@@ -6,11 +6,13 @@
 #' @param allr Vector of availability radii for simulation
 #' @param covlist List of covariate rasters
 #' @param xy0 Initial location (defaults to middle of map)
+#' @param norm Logical. If TRUE, a normal transition density is used (with 
+#' variance allr[1]^2).
 #' 
 #' @return Matrix of locations
 #' 
 #' @export
-simLG <- function(nbObs, beta, allr, covlist, xy0=NULL)
+simLG <- function(nbObs, beta, allr, covlist, xy0=NULL, norm=FALSE)
 {
     if(length(beta)!=length(covlist))
         stop("'beta' and 'covlist' should be the same length")
@@ -37,6 +39,7 @@ simLG <- function(nbObs, beta, allr, covlist, xy0=NULL)
     if(length(allr)==1)
         allr <- rep(allr, nbObs)
     
-    xy <- simLG_rcpp(nbObs=nbObs, beta=beta, allr=allr, cov=cov, xy0=xy0, lim=lim, res=res)
+    xy <- simLG_rcpp(nbObs=nbObs, beta=beta, allr=allr, cov=cov, xy0=xy0, 
+                     lim=lim, res=res, norm=ifelse(norm,1,0))
     return(xy)
 }

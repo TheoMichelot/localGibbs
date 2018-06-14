@@ -4,7 +4,7 @@
 \alias{simLG_rcpp}
 \title{Simulation function (local Gibbs sampler)}
 \usage{
-simLG_rcpp(nbObs, beta, allr, cov, xy0, lim, res)
+simLG_rcpp(nbObs, beta, allr, cov, xy0, lim, res, norm)
 }
 \arguments{
 \item{nbObs}{Number of observations}
@@ -20,6 +20,8 @@ simLG_rcpp(nbObs, beta, allr, cov, xy0, lim, res)
 \item{lim}{Limits of map}
 
 \item{res}{Resolution of map}
+
+\item{norm}{Logical (0 or 1). If TRUE, a normal transition density is used.}
 }
 \description{
 Simulation function (local Gibbs sampler)

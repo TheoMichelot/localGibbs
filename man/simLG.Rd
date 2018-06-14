@@ -4,7 +4,7 @@
 \alias{simLG}
 \title{Generate track from local Gibbs model}
 \usage{
-simLG(nbObs, beta, allr, covlist, xy0 = NULL)
+simLG(nbObs, beta, allr, covlist, xy0 = NULL, norm = FALSE)
 }
 \arguments{
 \item{nbObs}{Number of locations to simulate}
@@ -16,6 +16,9 @@ simLG(nbObs, beta, allr, covlist, xy0 = NULL)
 \item{covlist}{List of covariate rasters}
 
 \item{xy0}{Initial location (defaults to middle of map)}
+
+\item{norm}{Logical. If TRUE, a normal transition density is used (with 
+variance allr[1]^2).}
 }
 \value{
 Matrix of locations
