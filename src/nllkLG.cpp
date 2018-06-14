@@ -60,6 +60,8 @@ Rcpp::List nllkLG_rcpp(arma::vec beta, double shape, double rate, arma::vec ID, 
                     
                     if(sumz>0)
                         sumc = sumc + 1/sumz;
+                    else
+                        count = count - 1; // adjust if no contribution
                 }
                 
                 // area of intersection of discs D_r(x_t) and D_r(x_t-1) (for MC integration)
