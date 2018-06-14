@@ -4,6 +4,20 @@
 #' Negative log-likelihood for the local Gibbs model (C++)
 #'
 #' @param beta Parameters of the RSF
+#' @param ID Vector of track IDs
+#' @param xy Matrix of observed locations
+#' @param gridc Grid for Monte Carlo integration
+#' @param gridz Grid for Monte Carlo integration
+#' @param cov Array of covariates (one layer for each covariate)
+#' @param lim Limits of the covariate rasters.
+#' @param res Resolution of the covariate rasters.
+nllkLG_norm_rcpp <- function(beta, sigma, ID, xy, gridc, gridz, cov, lim, res) {
+    .Call('_localGibbs_nllkLG_norm_rcpp', PACKAGE = 'localGibbs', beta, sigma, ID, xy, gridc, gridz, cov, lim, res)
+}
+
+#' Negative log-likelihood for the local Gibbs model (C++)
+#'
+#' @param beta Parameters of the RSF
 #' @param shape Shape parameter of the distribution of r
 #' @param rate Rate parameter of the distribution of r
 #' @param ID Vector of track IDs
@@ -65,9 +79,10 @@ scalez <- function(gridc, gridz, r, xy0, xy1) {
 #' @param xy0 Initial location
 #' @param lim Limits of map
 #' @param res Resolution of map
+#' @param norm Logical (0 or 1). If TRUE, a normal transition density is used.
 #' @export
-simLG_rcpp <- function(nbObs, beta, allr, cov, xy0, lim, res) {
-    .Call('_localGibbs_simLG_rcpp', PACKAGE = 'localGibbs', nbObs, beta, allr, cov, xy0, lim, res)
+simLG_rcpp <- function(nbObs, beta, allr, cov, xy0, lim, res, norm) {
+    .Call('_localGibbs_simLG_rcpp', PACKAGE = 'localGibbs', nbObs, beta, allr, cov, xy0, lim, res, norm)
 }
 
 #' SSF simulation function (Fortin et al 2005)
