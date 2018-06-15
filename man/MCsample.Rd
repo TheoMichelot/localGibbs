@@ -4,7 +4,7 @@
 \alias{MCsample}
 \title{Generate Monte Carlo samples}
 \usage{
-MCsample(nr = NULL, nc, nz)
+MCsample(nr = NULL, nc, nz, norm = FALSE)
 }
 \arguments{
 \item{nr}{Size of Monte Carlo sample over r}
@@ -12,6 +12,9 @@ MCsample(nr = NULL, nc, nz)
 \item{nc}{Size of Monte Carlo sample over c}
 
 \item{nz}{Size of Monte Carlo sample over z}
+
+\item{norm}{Logical. If TRUE, standard normal bivariate
+samples are returned for c and z.}
 }
 \value{
 A list of three arrays of Monte Carlo samples:
