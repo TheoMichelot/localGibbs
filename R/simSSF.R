@@ -11,6 +11,8 @@
 #' @param anglePar Mean and concentration of von Mises distribution
 #' 
 #' @importFrom CircStats rvm
+#' @importFrom stats rgamma
+#' @importFrom utils txtProgressBar setTxtProgressBar
 #' @export
 simSSF <- function(nbObs, beta, xy1, xy2, nzeros, covlist, stepPar, anglePar)
 {
