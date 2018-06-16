@@ -4,12 +4,15 @@
 \alias{w2n}
 \title{Transform parameters from working to natural scale}
 \usage{
-w2n(wpar, rdist = c("fixed", "exp", "gamma"), xy = NULL)
+w2n(wpar, rdist = c("fixed", "multistate", "exp", "gamma"), nstate = 1,
+  xy = NULL)
 }
 \arguments{
 \item{wpar}{Vector of parameters on working scale}
 
-\item{rdist}{Distribution of the availability radius ("fixed", "exp", or "gamma")}
+\item{rdist}{Distribution of the availability radius ("fixed", "multistate", "exp", or "gamma")}
+
+\item{nstate}{Number of states, if rdist="multistate"}
 
 \item{xy}{Matrix of observed locations, needed to derive maximum step length
 if rdist="fixed"}

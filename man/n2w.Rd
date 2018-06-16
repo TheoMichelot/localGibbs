@@ -4,19 +4,22 @@
 \alias{n2w}
 \title{Transform parameters from natural to working scale}
 \usage{
-n2w(beta, rdist = c("fixed", "exp", "gamma"), r = NULL, shape = NULL,
-  rate = NULL, xy = NULL)
+n2w(beta, rdist = c("fixed", "multistate", "exp", "gamma"), r = NULL,
+  shape = NULL, rate = NULL, gamma = NULL, xy = NULL)
 }
 \arguments{
 \item{beta}{Coefficients of the RSF}
 
-\item{rdist}{Distribution of the availability radius ("fixed", "exp", or "gamma")}
+\item{rdist}{Distribution of the availability radius ("fixed", "multistate", 
+"exp", or "gamma")}
 
 \item{r}{Availability radius, if rdist="fixed"}
 
 \item{shape}{Shape parameter, if rdist="gamma"}
 
 \item{rate}{Rate parameter, if rdist="exp" or rdist="gamma"}
+
+\item{gamma}{Transition probability matrix, if rdist="multistate"}
 
 \item{xy}{Matrix of observed locations, needed to derive maximum step length
 if rdist="fixed"}
