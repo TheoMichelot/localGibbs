@@ -11,6 +11,7 @@
 #' gridr (vector), gridc (matrix), and gridz (matrix).
 #' 
 #' @importFrom lhs randomLHS
+#' @importFrom stats qnorm
 #' @export
 MCsample <- function(nr=NULL, nc, nz, norm=FALSE)
 {
