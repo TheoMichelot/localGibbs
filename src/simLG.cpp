@@ -7,7 +7,7 @@
 //'
 //' @param nbObs Number of observations
 //' @param beta Vector of resource selection coefficients
-//' @param allr Vector of radii for movement kernel (of length nbObs)
+//' @param allr Vector of radii for movement kernel (of length nbObs-1)
 //' @param cov Array of covariates (one layer for each covariate)
 //' @param xy0 Initial location
 //' @param lim Limits of map
@@ -36,7 +36,7 @@ arma::mat simLG_rcpp(int nbObs, arma::vec beta, arma::vec allr, arma::cube& cov,
             C(0) = R::rnorm(xy(t-1,0), allr(0));
             C(1) = R::rnorm(xy(t-1,1), allr(0));            
         } else {
-            d = sqrt(R::runif(0,allr(t)*allr(t)));
+            d = sqrt(R::runif(0,allr(t-1)*allr(t-1)));
             a = R::runif(-M_PI,M_PI);
             // centre of disc
             C(0) = xy(t-1,0) + d*cos(a);
@@ -49,7 +49,7 @@ arma::mat simLG_rcpp(int nbObs, arma::vec beta, arma::vec allr, arma::cube& cov,
                 grid(i,0) = R::rnorm(C(0), allr(0));
                 grid(i,1) = R::rnorm(C(1), allr(0));                
             } else {
-                d = sqrt(R::runif(0,allr(t)*allr(t)));
+                d = sqrt(R::runif(0,allr(t-1)*allr(t-1)));
                 a = R::runif(-M_PI,M_PI);
                 grid(i,0) = C(0) + d * cos(a);
                 grid(i,1) = C(1) + d * sin(a);

@@ -16,8 +16,6 @@ simLG <- function(nbObs, beta, allr, covlist, xy0=NULL, norm=FALSE)
 {
     if(length(beta)!=length(covlist))
         stop("'beta' and 'covlist' should be the same length")
-    if(length(allr)!=1 & length(allr)!=nbObs)
-        stop("'allr' should be of length nbObs or 1")
     
     # store covariates in array
     ncov <- length(covlist)
@@ -36,8 +34,14 @@ simLG <- function(nbObs, beta, allr, covlist, xy0=NULL, norm=FALSE)
     if(is.null(xy0))
         xy0 <- c((lim[1]+lim[2])/2, (lim[3]+lim[4])/2)
     
-    if(length(allr)==1)
+    if(length(allr)==1) {
         allr <- rep(allr, nbObs)
+    } else if(length(allr)>=nbObs) {
+        allr <- allr[1:(nbObs-1)]
+        warning(paste("Only first",nbObs-1,"radii used"))
+    } else if(length(allr)<(nbObs-1)) {
+        stop("'allr' should be of length 1 or nbObs-1")
+    }
     
     xy <- simLG_rcpp(nbObs=nbObs, beta=beta, allr=allr, cov=cov, xy0=xy0, 
                      lim=lim, res=res, norm=ifelse(norm,1,0))

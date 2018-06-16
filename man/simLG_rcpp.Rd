@@ -11,7 +11,7 @@ simLG_rcpp(nbObs, beta, allr, cov, xy0, lim, res, norm)
 
 \item{beta}{Vector of resource selection coefficients}
 
-\item{allr}{Vector of radii for movement kernel (of length nbObs)}
+\item{allr}{Vector of radii for movement kernel (of length nbObs-1)}
 
 \item{cov}{Array of covariates (one layer for each covariate)}
 
