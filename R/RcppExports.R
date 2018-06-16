@@ -4,6 +4,7 @@
 #' Negative log-likelihood for the local Gibbs model (C++)
 #'
 #' @param beta Parameters of the RSF
+#' @param sigma Standard deviation parameter
 #' @param ID Vector of track IDs
 #' @param xy Matrix of observed locations
 #' @param gridc Grid for Monte Carlo integration
@@ -74,7 +75,7 @@ scalez <- function(gridc, gridz, r, xy0, xy1) {
 #'
 #' @param nbObs Number of observations
 #' @param beta Vector of resource selection coefficients
-#' @param allr Vector of radii for movement kernel (of length nbObs)
+#' @param allr Vector of radii for movement kernel (of length nbObs-1)
 #' @param cov Array of covariates (one layer for each covariate)
 #' @param xy0 Initial location
 #' @param lim Limits of map
