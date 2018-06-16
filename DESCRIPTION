@@ -16,6 +16,7 @@ Imports: Rcpp (>= 0.12.16),
     reshape2, 
     ggplot2, 
     viridis,
-    sp
+    sp,
+    CircStats
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 6.0.1
