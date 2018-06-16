@@ -5,7 +5,7 @@
 \title{Negative log-likelihood function for the local Gibbs model}
 \usage{
 nllkLG(par, ID = NULL, xy, rdist = c("fixed", "exp", "gamma"), MCgrids, cov,
-  lim, res)
+  lim, res, debug = FALSE)
 }
 \arguments{
 \item{par}{Vector of parameters, i.e. resource selection coefficients and
@@ -25,6 +25,9 @@ gridc, and gridz. As output by \code{\link{MCsample}}.}
 \item{lim}{Limits of the covariate rasters.}
 
 \item{res}{Resolution of the covariate rasters.}
+
+\item{debug}{Logical. If TRUE, the function also returns the log-likelihood
+of each step}
 }
 \description{
 Negative log-likelihood function for the local Gibbs model
