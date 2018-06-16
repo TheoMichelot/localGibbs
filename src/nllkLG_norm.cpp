@@ -6,6 +6,7 @@
 //' Negative log-likelihood for the local Gibbs model (C++)
 //'
 //' @param beta Parameters of the RSF
+//' @param sigma Standard deviation parameter
 //' @param ID Vector of track IDs
 //' @param xy Matrix of observed locations
 //' @param gridc Grid for Monte Carlo integration
@@ -57,7 +58,6 @@ Rcpp::List nllkLG_norm_rcpp(arma::vec beta, double sigma, arma::vec ID, arma::ma
                 } else {
                     count = count - 1;
                 }
-                
             }
             
             double logp = log(nz) - log(count) + log(rsf(xy.row(t),beta,cov,lim,res)) + log(sumc);

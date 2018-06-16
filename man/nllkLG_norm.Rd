@@ -6,6 +6,21 @@
 \usage{
 nllkLG_norm(par, ID = NULL, xy, MCgrids, cov, lim, res)
 }
+\arguments{
+\item{par}{Vector of parameters on working scale}
+
+\item{ID}{Vector of track ID}
+
+\item{xy}{Matrix of observed locations}
+
+\item{MCgrids}{List of Monte Carlo samples for the pseudo-likelihood evaluation}
+
+\item{cov}{Array of covariates (one layer for each covariate)}
+
+\item{lim}{Limits of the covariate rasters.}
+
+\item{res}{Resolution of the covariate rasters.}
+}
 \description{
 Local Gibbs negative log likelihood (normal transition density)
 }

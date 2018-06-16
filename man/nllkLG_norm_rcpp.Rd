@@ -9,6 +9,8 @@ nllkLG_norm_rcpp(beta, sigma, ID, xy, gridc, gridz, cov, lim, res)
 \arguments{
 \item{beta}{Parameters of the RSF}
 
+\item{sigma}{Standard deviation parameter}
+
 \item{ID}{Vector of track IDs}
 
 \item{xy}{Matrix of observed locations}

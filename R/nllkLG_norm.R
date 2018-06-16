@@ -1,6 +1,14 @@
 
 #' Local Gibbs negative log likelihood (normal transition density)
 #' 
+#' @param par Vector of parameters on working scale
+#' @param ID Vector of track ID
+#' @param xy Matrix of observed locations
+#' @param MCgrids List of Monte Carlo samples for the pseudo-likelihood evaluation
+#' @param cov Array of covariates (one layer for each covariate)
+#' @param lim Limits of the covariate rasters.
+#' @param res Resolution of the covariate rasters.
+#' 
 #' @export
 nllkLG_norm <- function(par, ID=NULL, xy, MCgrids, cov, lim, res)
 {
@@ -12,6 +20,7 @@ nllkLG_norm <- function(par, ID=NULL, xy, MCgrids, cov, lim, res)
     beta <- par[1:dim(cov)[3]]
     sigma <- exp(par[dim(cov)[3]+1])
     
+    # scale samples to N(0,sigma^2)
     gridc <- MCgrids$gridc * sigma
     gridz <- MCgrids$gridz * sigma
     
