@@ -35,7 +35,7 @@ simLG <- function(nbObs, beta, allr, covlist, xy0=NULL, norm=FALSE)
         xy0 <- c((lim[1]+lim[2])/2, (lim[3]+lim[4])/2)
     
     if(length(allr)==1) {
-        allr <- rep(allr, nbObs)
+        allr <- rep(allr, nbObs-1)
     } else if(length(allr)>=nbObs) {
         allr <- allr[1:(nbObs-1)]
         warning(paste("Only first",nbObs-1,"radii used"))
