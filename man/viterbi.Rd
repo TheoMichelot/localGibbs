@@ -4,12 +4,15 @@
 \alias{viterbi}
 \title{Viterbi algorithm for multistate local Gibbs model}
 \usage{
-viterbi(xy, r, beta, gamma, MCgrids, covlist)
+viterbi(xy, r = NULL, sigma = NULL, beta, gamma, MCgrids, covlist,
+  norm = FALSE)
 }
 \arguments{
 \item{xy}{Matrix of observed locations}
 
-\item{r}{Vector of availability radii}
+\item{r}{Vector of availability radii (if norm=FALSE)}
+
+\item{sigma}{Vector of standard deviations (if norm=TRUE)}
 
 \item{beta}{Vector of selection parameters}
 
@@ -19,6 +22,8 @@ viterbi(xy, r, beta, gamma, MCgrids, covlist)
 and gridz. As output by \code{\link{MCsample}}.}
 
 \item{covlist}{List of covariate rasters}
+
+\item{norm}{Logical. TRUE if normal transition density. (Only for multistate case)}
 }
 \description{
 Viterbi algorithm for multistate local Gibbs model

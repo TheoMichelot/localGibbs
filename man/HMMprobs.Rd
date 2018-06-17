@@ -4,12 +4,17 @@
 \alias{HMMprobs}
 \title{State-dependent distributions for multistate local Gibbs}
 \usage{
-HMMprobs(xy, r, beta, gridc, gridz, cov, lim, res)
+HMMprobs(xy, r = NULL, sigma = NULL, beta, gridc, gridz, cov, lim, res,
+  norm = FALSE)
 }
 \arguments{
 \item{xy}{Matrix of observed locations}
 
-\item{r}{Vector of availability radii (one for each state)}
+\item{r}{Vector of availability radii 
+(one for each state -- if norm=FALSE)}
+
+\item{sigma}{Vector of standard deviations 
+(one for each state -- if norm=TRUE)}
 
 \item{beta}{Vector of habitat selection parameters}
 
@@ -19,9 +24,11 @@ HMMprobs(xy, r, beta, gridc, gridz, cov, lim, res)
 
 \item{cov}{Array of covariates (one layer for each covariate)}
 
-\item{lim}{Limits of the covariate rasters.}
+\item{lim}{Limits of the covariate rasters}
 
-\item{res}{Resolution of the covariate rasters.}
+\item{res}{Resolution of the covariate rasters}
+
+\item{norm}{Logical. If TRUE, uses normal densities}
 }
 \value{
 Matrix with one row for each observed step, and one column

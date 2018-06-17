@@ -9,20 +9,26 @@
 #' @param cov Array of covariates (one layer for each covariate)
 #' @param lim Limits of the covariate rasters.
 #' @param res Resolution of the covariate rasters.
+#' @param norm Logical. TRUE if normal transition density. (Only for multistate case)
 #' 
 #' @return Negative log-likelihood
 #' 
 #' @export
-nllkMSLG <- function(par, xy, nstate, MCgrids, cov, lim, res)
+nllkMSLG <- function(par, xy, nstate, MCgrids, cov, lim, res, norm=FALSE)
 {
     nobs <- nrow(xy)
     steps <- sqrt(rowSums((xy[-1,]-xy[-nrow(xy),])^2))
     
     # unpack parameters
     ncov <- dim(cov)[3]
-    npar <- w2n(par, rdist="multistate", nstate=nstate, xy=xy)
+    npar <- w2n(par, rdist="multistate", nstate=nstate, xy=xy, norm=norm)
     beta <- npar$beta
-    r <- npar$r
+    r <- NULL
+    sigma <- NULL
+    if(!norm)
+        r <- npar$r
+    else
+        sigma <- npar$sigma
     gamma <- npar$gamma
     
     # unpack Monte Carlo samples
@@ -30,8 +36,8 @@ nllkMSLG <- function(par, xy, nstate, MCgrids, cov, lim, res)
     gridz <- MCgrids$gridz
     
     # calculate state dependent probs
-    p <- HMMprobs(xy=xy, r=r, beta=beta, gridc=gridc, gridz=gridz, 
-                  cov=cov, lim=lim, res=res)
+    p <- HMMprobs(xy=xy, r=r, sigma=sigma, beta=beta, gridc=gridc, gridz=gridz, 
+                  cov=cov, lim=lim, res=res, norm=norm)
     
     if(any(p[,1]==0 & p[,2]==0)) {
         warning(paste("At least one matrix of state-dependent densities is",

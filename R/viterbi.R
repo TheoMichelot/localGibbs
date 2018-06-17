@@ -2,18 +2,24 @@
 #' Viterbi algorithm for multistate local Gibbs model
 #' 
 #' @param xy Matrix of observed locations
-#' @param r Vector of availability radii
+#' @param r Vector of availability radii (if norm=FALSE)
+#' @param sigma Vector of standard deviations (if norm=TRUE)
 #' @param beta Vector of selection parameters
 #' @param gamma Transition probability matrix
 #' @param MCgrids List of Monte Carlo samples, with components gridc 
 #' and gridz. As output by \code{\link{MCsample}}.
 #' @param covlist List of covariate rasters
+#' @param norm Logical. TRUE if normal transition density. (Only for multistate case)
 #' 
 #' @export
-viterbi <- function(xy, r, beta, gamma, MCgrids, covlist)
+viterbi <- function(xy, r=NULL, sigma=NULL, beta, gamma, 
+                    MCgrids, covlist, norm=FALSE)
 {
     nobs <- nrow(xy) - 1
-    nstate <- length(r)
+    if(norm)
+        nstate <- length(sigma)
+    else
+        nstate <- length(r)
     
     # unpack arguments
     gridc <- MCgrids$gridc
@@ -23,8 +29,8 @@ viterbi <- function(xy, r, beta, gamma, MCgrids, covlist)
     res <- c(xres(covlist[[1]]), yres(covlist[[1]]))
     
     # state-dependent probs
-    p <- HMMprobs(xy=xy, r=r, beta=beta, gridc=gridc, gridz=gridz, 
-                  cov=cov, lim=lim, res=res)
+    p <- HMMprobs(xy=xy, r=r, sigma=sigma, beta=beta, gridc=gridc, gridz=gridz, 
+                  cov=cov, lim=lim, res=res, norm=norm)
     
     # initial distribution
     delta <- rep(1,nstate)/nstate

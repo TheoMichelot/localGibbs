@@ -5,7 +5,7 @@
 \title{Transform parameters from working to natural scale}
 \usage{
 w2n(wpar, rdist = c("fixed", "multistate", "exp", "gamma"), nstate = 1,
-  xy = NULL)
+  xy = NULL, norm = FALSE)
 }
 \arguments{
 \item{wpar}{Vector of parameters on working scale}
@@ -16,6 +16,8 @@ w2n(wpar, rdist = c("fixed", "multistate", "exp", "gamma"), nstate = 1,
 
 \item{xy}{Matrix of observed locations, needed to derive maximum step length
 if rdist="fixed"}
+
+\item{norm}{Logical. TRUE if normal transition density. (Only for multistate case)}
 }
 \value{
 Vector of parameters on the working scale

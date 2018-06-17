@@ -4,7 +4,7 @@
 \alias{nllkMSLG}
 \title{Negative log-likelihood for multistate local Gibbs model}
 \usage{
-nllkMSLG(par, xy, nstate, MCgrids, cov, lim, res)
+nllkMSLG(par, xy, nstate, MCgrids, cov, lim, res, norm = FALSE)
 }
 \arguments{
 \item{par}{Vector of parameters on working scale}
@@ -21,6 +21,8 @@ As output by \code{\link{MCsample}}.}
 \item{lim}{Limits of the covariate rasters.}
 
 \item{res}{Resolution of the covariate rasters.}
+
+\item{norm}{Logical. TRUE if normal transition density. (Only for multistate case)}
 }
 \value{
 Negative log-likelihood
