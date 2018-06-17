@@ -33,8 +33,8 @@ arma::mat simLG_rcpp(int nbObs, arma::vec beta, arma::vec allr, arma::cube& cov,
     int t = 1;
     while(t<nbObs) {
         if(norm) {
-            C(0) = R::rnorm(xy(t-1,0), allr(0));
-            C(1) = R::rnorm(xy(t-1,1), allr(0));            
+            C(0) = R::rnorm(xy(t-1,0), allr(t-1));
+            C(1) = R::rnorm(xy(t-1,1), allr(t-1));            
         } else {
             d = sqrt(R::runif(0,allr(t-1)*allr(t-1)));
             a = R::runif(-M_PI,M_PI);
@@ -46,8 +46,8 @@ arma::mat simLG_rcpp(int nbObs, arma::vec beta, arma::vec allr, arma::cube& cov,
         // sample 100 points in the circle
         for(int i=0; i<100; i++) {
             if(norm) {
-                grid(i,0) = R::rnorm(C(0), allr(0));
-                grid(i,1) = R::rnorm(C(1), allr(0));                
+                grid(i,0) = R::rnorm(C(0), allr(t-1));
+                grid(i,1) = R::rnorm(C(1), allr(t-1));                
             } else {
                 d = sqrt(R::runif(0,allr(t-1)*allr(t-1)));
                 a = R::runif(-M_PI,M_PI);
