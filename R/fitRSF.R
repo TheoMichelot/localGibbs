@@ -10,7 +10,8 @@
 #' @param buffsize Size of buffer around the observed locations from which
 #' control locations should be sampled, if method='logit'.
 #' 
-#' @return Output of glm
+#' @return List of \code{mod} (output of glm) and \code{xyzeros} (matrix of
+#' unused locations)
 #' 
 #' @importFrom ash bin2
 #' @importFrom reshape2 melt
@@ -39,7 +40,8 @@ fitRSF <- function(xy, method=c("poisson","logit"), covlist, nbin=NULL, nzeros=N
         countsLG <- melt(binsLG$nc)$value
         RSFdata <- cbind(countsLG=countsLG, RSFdata)
         
-        modRSF <- glm(countsLG~., data=RSFdata, family="poisson")
+        mod <- glm(countsLG~., data=RSFdata, family="poisson")
+        xyzeros <- NULL    
     } else if(method=="logit") {
         
         if(is.null(buffsize)) {
@@ -67,8 +69,8 @@ fitRSF <- function(xy, method=c("poisson","logit"), covlist, nbin=NULL, nzeros=N
         colnames(RSFdata) <- NULL
         RSFdata <- cbind(used=c(rep(1,nrow(xy)), rep(0,nzeros)), RSFdata)
         
-        modRSF <- glm(used~., family=binomial(link="logit"), data=RSFdata)
+        mod <- glm(used~., family=binomial(link="logit"), data=RSFdata)
     }
     
-    return(modRSF)    
+    return(list(mod=mod,xyzeros=xyzeros))    
 }

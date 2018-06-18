@@ -23,7 +23,8 @@ Poisson GLM, or "logit" for a logistic regression}
 control locations should be sampled, if method='logit'.}
 }
 \value{
-Output of glm
+List of \code{mod} (output of glm) and \code{xyzeros} (matrix of
+unused locations)
 }
 \description{
 Fit RSF
