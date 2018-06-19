@@ -3,7 +3,7 @@
 #' 
 #' @param beta Coefficients of the RSF
 #' @param rdist Distribution of the availability radius ("fixed", "multistate", 
-#' "exp", or "gamma")
+#' "exp", "gamma", or "weibull)
 #' @param r Availability radius, if rdist="fixed" (or vector of radii if multistate)
 #' @param sigma Vector of standard deviations (if norm=TRUE)
 #' @param shape Shape parameter, if rdist="gamma"
@@ -16,8 +16,9 @@
 #' @return Vector of parameters on the working scale
 #' 
 #' @export
-n2w <- function(beta, rdist=c("fixed", "multistate", "exp", "gamma"), r=NULL, sigma=NULL,
-                shape=NULL, rate=NULL, gamma=NULL, xy=NULL, norm=FALSE)
+n2w <- function(beta, rdist=c("fixed", "multistate", "exp", "gamma", "weibull"), 
+                r=NULL, sigma=NULL, shape=NULL, rate=NULL, gamma=NULL, 
+                xy=NULL, norm=FALSE)
 {
     if(rdist=="fixed") {
         if(is.null(r) | is.null(xy))
@@ -60,9 +61,9 @@ n2w <- function(beta, rdist=c("fixed", "multistate", "exp", "gamma"), r=NULL, si
             stop("'rate' must be provided if rdist='exp'")
         wpar <- c(beta, log(rate))
         
-    } else if(rdist=="gamma") {
+    } else if(rdist=="gamma" || rdist=="weibull") {
         if(is.null(shape) | is.null(rate))
-            stop("'shape' and 'rate' must be provided if rdist='gamma'")
+            stop("'shape' and 'rate' must be provided if rdist='gamma' or 'weibull'")
         wpar <- c(beta, log(shape), log(rate))
     }
     

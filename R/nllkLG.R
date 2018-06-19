@@ -5,7 +5,8 @@
 #' parameters for the distribution of the radius.
 #' @param ID Vector of track IDs
 #' @param xy Matrix of observed locations
-#' @param rdist Distribution of availability radius ("fixed", "exp", or "gamma")
+#' @param rdist Distribution of availability radius 
+#' ("fixed", "exp", "gamma", or "weibull")
 #' @param MCgrids List of Monte Carlo samples, with components gridr (if needed), 
 #' gridc, and gridz. As output by \code{\link{MCsample}}.
 #' @param cov Array of covariates (one layer for each covariate)
@@ -17,8 +18,8 @@
 #' @export
 #' 
 #' @useDynLib localGibbs
-nllkLG <- function(par, ID=NULL, xy, rdist=c("fixed", "exp", "gamma"), MCgrids, 
-                   cov, lim, res, debug=FALSE)
+nllkLG <- function(par, ID=NULL, xy, rdist=c("fixed", "exp", "gamma", "weibull"), 
+                   MCgrids, cov, lim, res, debug=FALSE)
 {
     # consider unique track if ID==NULL
     if(is.null(ID))
@@ -41,7 +42,8 @@ nllkLG <- function(par, ID=NULL, xy, rdist=c("fixed", "exp", "gamma"), MCgrids,
         truncr <- matrix(r, nrow=nrow(xy)-1, ncol=1)
     } else {
         gridr <- MCgrids$gridr
-        truncr <- truncgridr(shape, rate, ID, xy, gridr)
+        truncr <- truncgridr(rdist=rdist, shape=shape, rate=rate, 
+                             ID=ID, xy=xy, gridr=gridr)
     }
     
     # Rcpp doesn't cope with NULL

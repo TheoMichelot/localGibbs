@@ -4,13 +4,14 @@
 \alias{w2n}
 \title{Transform parameters from working to natural scale}
 \usage{
-w2n(wpar, rdist = c("fixed", "multistate", "exp", "gamma"), nstate = 1,
-  xy = NULL, norm = FALSE)
+w2n(wpar, rdist = c("fixed", "multistate", "exp", "gamma", "weibull"),
+  nstate = 1, xy = NULL, norm = FALSE)
 }
 \arguments{
 \item{wpar}{Vector of parameters on working scale}
 
-\item{rdist}{Distribution of the availability radius ("fixed", "multistate", "exp", or "gamma")}
+\item{rdist}{Distribution of the availability radius ("fixed", "multistate", 
+"exp", "gamma", or "weibull)}
 
 \item{nstate}{Number of states, if rdist="multistate"}
 

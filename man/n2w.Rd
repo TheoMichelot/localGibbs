@@ -4,15 +4,15 @@
 \alias{n2w}
 \title{Transform parameters from natural to working scale}
 \usage{
-n2w(beta, rdist = c("fixed", "multistate", "exp", "gamma"), r = NULL,
-  sigma = NULL, shape = NULL, rate = NULL, gamma = NULL, xy = NULL,
-  norm = FALSE)
+n2w(beta, rdist = c("fixed", "multistate", "exp", "gamma", "weibull"),
+  r = NULL, sigma = NULL, shape = NULL, rate = NULL, gamma = NULL,
+  xy = NULL, norm = FALSE)
 }
 \arguments{
 \item{beta}{Coefficients of the RSF}
 
 \item{rdist}{Distribution of the availability radius ("fixed", "multistate", 
-"exp", or "gamma")}
+"exp", "gamma", or "weibull)}
 
 \item{r}{Availability radius, if rdist="fixed" (or vector of radii if multistate)}
 

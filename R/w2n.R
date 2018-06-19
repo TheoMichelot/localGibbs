@@ -2,7 +2,8 @@
 #' Transform parameters from working to natural scale
 #' 
 #' @param wpar Vector of parameters on working scale
-#' @param rdist Distribution of the availability radius ("fixed", "multistate", "exp", or "gamma")
+#' @param rdist Distribution of the availability radius ("fixed", "multistate", 
+#' "exp", "gamma", or "weibull)
 #' @param nstate Number of states, if rdist="multistate"
 #' @param xy Matrix of observed locations, needed to derive maximum step length
 #' if rdist="fixed"
@@ -11,8 +12,8 @@
 #' @return Vector of parameters on the working scale
 #' 
 #' @export
-w2n <- function(wpar, rdist=c("fixed", "multistate", "exp", "gamma"), nstate=1, 
-                xy=NULL, norm=FALSE)
+w2n <- function(wpar, rdist=c("fixed", "multistate", "exp", "gamma", "weibull"), 
+                nstate=1, xy=NULL, norm=FALSE)
 {
     r <- NULL
     sigma <- NULL
@@ -58,7 +59,7 @@ w2n <- function(wpar, rdist=c("fixed", "multistate", "exp", "gamma"), nstate=1,
         beta <- wpar[1:(length(wpar)-1)]
         rate <- exp(wpar[length(wpar)])
         
-    } else if(rdist=="gamma") {
+    } else if(rdist=="gamma" || rdist=="weibull") {
         beta <- wpar[1:(length(wpar)-2)]
         shape <- exp(wpar[length(wpar)-1])
         rate <- exp(wpar[length(wpar)])

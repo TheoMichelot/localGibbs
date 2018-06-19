@@ -76,6 +76,8 @@ Rcpp::List nllkLG_rcpp(arma::vec beta, double shape, double rate, arma::vec ID, 
                 rlogCDF = R::pexp(steps(t-1)/2, 1/rate, 0, 1);
             else if(rdist=="gamma")
                 rlogCDF = R::pgamma(steps(t-1)/2, shape, 1/rate, 0, 1);
+            else if(rdist=="weibull")
+                rlogCDF = R::pweibull(steps(t-1)/2, shape, 1/rate, 0, 1);
             else
                 rlogCDF = 0;
             

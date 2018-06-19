@@ -4,9 +4,13 @@
 \alias{truncgridr}
 \title{Truncate the sample of avilability radii}
 \usage{
-truncgridr(shape = NULL, rate, ID, xy, gridr)
+truncgridr(rdist = c("exp", "gamma", "weibull"), shape = NULL, rate, ID, xy,
+  gridr)
 }
 \arguments{
+\item{rdist}{Distribution of availability radius r. Can be
+"exp", "gamma", or "weibull".}
+
 \item{shape}{Shape parameter of r distribution (NA if r~exp)}
 
 \item{rate}{Rate parameter of r distribution}
