@@ -22,7 +22,7 @@ As output by \code{\link{MCsample}}.}
 
 \item{res}{Resolution of the covariate rasters.}
 
-\item{norm}{Logical. TRUE if normal transition density. (Only for multistate case)}
+\item{norm}{Logical. TRUE if normal transition density.}
 }
 \value{
 Negative log-likelihood

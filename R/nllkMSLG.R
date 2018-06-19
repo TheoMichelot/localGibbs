@@ -9,7 +9,7 @@
 #' @param cov Array of covariates (one layer for each covariate)
 #' @param lim Limits of the covariate rasters.
 #' @param res Resolution of the covariate rasters.
-#' @param norm Logical. TRUE if normal transition density. (Only for multistate case)
+#' @param norm Logical. TRUE if normal transition density.
 #' 
 #' @return Negative log-likelihood
 #' 
