@@ -16,6 +16,9 @@ nllkLG_norm <- function(par, ID=NULL, xy, MCgrids, cov, lim, res)
     if(is.null(ID))
         ID <- rep(1,nrow(xy))
     
+    if(length(par)!=dim(cov)[3]+1)
+        stop("Length of 'par' incompatible with dimensions of 'cov'")
+    
     # unpack parameters
     beta <- par[1:dim(cov)[3]]
     sigma <- exp(par[dim(cov)[3]+1])
