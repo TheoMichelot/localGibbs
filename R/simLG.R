@@ -8,11 +8,12 @@
 #' @param xy0 Initial location (defaults to middle of map)
 #' @param norm Logical. If TRUE, a normal transition density is used (with 
 #' variance allr[1]^2).
+#' @param npts Number of potential endpoints to sample at each time step
 #' 
 #' @return Matrix of locations
 #' 
 #' @export
-simLG <- function(nbObs, beta, allr, covlist, xy0=NULL, norm=FALSE)
+simLG <- function(nbObs, beta, allr, covlist, xy0=NULL, norm=FALSE, npts=100)
 {
     if(length(beta)!=length(covlist))
         stop("'beta' and 'covlist' should be the same length")
@@ -44,6 +45,6 @@ simLG <- function(nbObs, beta, allr, covlist, xy0=NULL, norm=FALSE)
     }
     
     xy <- simLG_rcpp(nbObs=nbObs, beta=beta, allr=allr, cov=cov, xy0=xy0, 
-                     lim=lim, res=res, norm=ifelse(norm,1,0))
+                     lim=lim, res=res, norm=ifelse(norm,1,0), npts=npts)
     return(xy)
 }

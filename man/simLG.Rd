@@ -4,7 +4,7 @@
 \alias{simLG}
 \title{Generate track from local Gibbs model}
 \usage{
-simLG(nbObs, beta, allr, covlist, xy0 = NULL, norm = FALSE)
+simLG(nbObs, beta, allr, covlist, xy0 = NULL, norm = FALSE, npts = 100)
 }
 \arguments{
 \item{nbObs}{Number of locations to simulate}
@@ -19,6 +19,8 @@ simLG(nbObs, beta, allr, covlist, xy0 = NULL, norm = FALSE)
 
 \item{norm}{Logical. If TRUE, a normal transition density is used (with 
 variance allr[1]^2).}
+
+\item{npts}{Number of potential endpoints to sample at each time step}
 }
 \value{
 Matrix of locations

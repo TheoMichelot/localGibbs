@@ -81,9 +81,10 @@ scalez <- function(gridc, gridz, r, xy0, xy1) {
 #' @param lim Limits of map
 #' @param res Resolution of map
 #' @param norm Logical (0 or 1). If TRUE, a normal transition density is used.
+#' @param npts Number of potential endpoints to sample at each time step
 #' @export
-simLG_rcpp <- function(nbObs, beta, allr, cov, xy0, lim, res, norm) {
-    .Call('_localGibbs_simLG_rcpp', PACKAGE = 'localGibbs', nbObs, beta, allr, cov, xy0, lim, res, norm)
+simLG_rcpp <- function(nbObs, beta, allr, cov, xy0, lim, res, norm, npts) {
+    .Call('_localGibbs_simLG_rcpp', PACKAGE = 'localGibbs', nbObs, beta, allr, cov, xy0, lim, res, norm, npts)
 }
 
 #' SSF simulation function (Fortin et al 2005)

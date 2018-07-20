@@ -93,8 +93,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // simLG_rcpp
-arma::mat simLG_rcpp(int nbObs, arma::vec beta, arma::vec allr, arma::cube& cov, arma::rowvec xy0, arma::vec lim, arma::vec res, int norm);
-RcppExport SEXP _localGibbs_simLG_rcpp(SEXP nbObsSEXP, SEXP betaSEXP, SEXP allrSEXP, SEXP covSEXP, SEXP xy0SEXP, SEXP limSEXP, SEXP resSEXP, SEXP normSEXP) {
+arma::mat simLG_rcpp(int nbObs, arma::vec beta, arma::vec allr, arma::cube& cov, arma::rowvec xy0, arma::vec lim, arma::vec res, int norm, int npts);
+RcppExport SEXP _localGibbs_simLG_rcpp(SEXP nbObsSEXP, SEXP betaSEXP, SEXP allrSEXP, SEXP covSEXP, SEXP xy0SEXP, SEXP limSEXP, SEXP resSEXP, SEXP normSEXP, SEXP nptsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -106,7 +106,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::vec >::type lim(limSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type res(resSEXP);
     Rcpp::traits::input_parameter< int >::type norm(normSEXP);
-    rcpp_result_gen = Rcpp::wrap(simLG_rcpp(nbObs, beta, allr, cov, xy0, lim, res, norm));
+    Rcpp::traits::input_parameter< int >::type npts(nptsSEXP);
+    rcpp_result_gen = Rcpp::wrap(simLG_rcpp(nbObs, beta, allr, cov, xy0, lim, res, norm, npts));
     return rcpp_result_gen;
 END_RCPP
 }

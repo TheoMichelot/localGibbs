@@ -4,7 +4,7 @@
 \alias{simLG_rcpp}
 \title{Simulation function (local Gibbs sampler)}
 \usage{
-simLG_rcpp(nbObs, beta, allr, cov, xy0, lim, res, norm)
+simLG_rcpp(nbObs, beta, allr, cov, xy0, lim, res, norm, npts)
 }
 \arguments{
 \item{nbObs}{Number of observations}
@@ -22,6 +22,8 @@ simLG_rcpp(nbObs, beta, allr, cov, xy0, lim, res, norm)
 \item{res}{Resolution of map}
 
 \item{norm}{Logical (0 or 1). If TRUE, a normal transition density is used.}
+
+\item{npts}{Number of potential endpoints to sample at each time step}
 }
 \description{
 Simulation function (local Gibbs sampler)

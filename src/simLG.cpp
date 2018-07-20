@@ -13,10 +13,12 @@
 //' @param lim Limits of map
 //' @param res Resolution of map
 //' @param norm Logical (0 or 1). If TRUE, a normal transition density is used.
+//' @param npts Number of potential endpoints to sample at each time step
 //' @export
 // [[Rcpp::export]]
 arma::mat simLG_rcpp(int nbObs, arma::vec beta, arma::vec allr, arma::cube& cov,
-                     arma::rowvec xy0, arma::vec lim, arma::vec res, int norm)
+                     arma::rowvec xy0, arma::vec lim, arma::vec res, int norm,
+                     int npts)
 {
     if(xy0(0)<lim(0) || xy0(0)>lim(1) || xy0(1)<lim(2) || xy0(1)>lim(3))
         Rcpp::stop("The initial location must be within the limits of the map.");
@@ -27,8 +29,8 @@ arma::mat simLG_rcpp(int nbObs, arma::vec beta, arma::vec allr, arma::cube& cov,
     
     double d, a;
     arma::rowvec C(2);
-    arma::mat grid(100,2);
-    arma::vec allrsf(100);
+    arma::mat grid(npts,2);
+    arma::vec allrsf(npts);
     
     int t = 1;
     while(t<nbObs) {
@@ -43,8 +45,8 @@ arma::mat simLG_rcpp(int nbObs, arma::vec beta, arma::vec allr, arma::cube& cov,
             C(1) = xy(t-1,1) + d*sin(a);
         }
         
-        // sample 100 points in the circle
-        for(int i=0; i<100; i++) {
+        // sample npts points in the circle
+        for(int i=0; i<npts; i++) {
             if(norm) {
                 grid(i,0) = R::rnorm(C(0), allr(t-1));
                 grid(i,1) = R::rnorm(C(1), allr(t-1));                
