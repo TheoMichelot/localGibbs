@@ -28,14 +28,15 @@ n2w <- function(beta, rdist=c("fixed", "multistate", "exp", "gamma", "weibull"),
         wpar <- c(beta, log(r - stepmax/2))
         
     } else if(rdist=="multistate") {
-        if(is.null(xy) | is.null(gamma))
-            stop("'gamma', and 'xy' need to be provided if rdist='multistate'")
-        steps <- sqrt(rowSums((xy[-1,]-xy[-nrow(xy),])^2))
-        stepmax <- max(steps, na.rm=TRUE)
+        if(is.null(gamma))
+            stop("'gamma' must be provided if rdist='multistate'")
         
         if(!norm) {
-            if(is.null(r))
-                stop("'r' must be provided if norm=FALSE")
+            if(is.null(r) | is.null(xy))
+                stop("'r' and 'xy' must be provided if norm=FALSE")
+            
+            steps <- sqrt(rowSums((xy[-1,]-xy[-nrow(xy),])^2))
+            stepmax <- max(steps, na.rm=TRUE)
             
             nstate <- length(r)
             r[length(r)] <- r[length(r)] - stepmax/2
