@@ -75,7 +75,8 @@ scalez <- function(gridc, gridz, r, xy0, xy1) {
 #'
 #' @param nbObs Number of observations
 #' @param beta Vector of resource selection coefficients
-#' @param allr Vector of radii for movement kernel (of length nbObs-1)
+#' @param allr Vector of radii for movement kernel, or standard deviations
+#' if norm=TRUE (of length nbObs-1)
 #' @param cov Array of covariates (one layer for each covariate)
 #' @param xy0 Initial location
 #' @param lim Limits of map

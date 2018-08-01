@@ -3,11 +3,11 @@
 #' 
 #' @param nbObs Number of locations to simulate
 #' @param beta Parameters of the RSF
-#' @param allr Vector of availability radii for simulation
+#' @param allr Vector of availability radii (or standard deviations if norm=TRUE)
 #' @param covlist List of covariate rasters
 #' @param xy0 Initial location (defaults to middle of map)
 #' @param norm Logical. If TRUE, a normal transition density is used (with 
-#' variance allr[1]^2).
+#' variance given by allr^2).
 #' @param npts Number of potential endpoints to sample at each time step
 #' 
 #' @return Matrix of locations

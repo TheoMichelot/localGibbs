@@ -7,7 +7,8 @@
 //'
 //' @param nbObs Number of observations
 //' @param beta Vector of resource selection coefficients
-//' @param allr Vector of radii for movement kernel (of length nbObs-1)
+//' @param allr Vector of radii for movement kernel, or standard deviations
+//' if norm=TRUE (of length nbObs-1)
 //' @param cov Array of covariates (one layer for each covariate)
 //' @param xy0 Initial location
 //' @param lim Limits of map
@@ -36,7 +37,7 @@ arma::mat simLG_rcpp(int nbObs, arma::vec beta, arma::vec allr, arma::cube& cov,
     while(t<nbObs) {
         if(norm) {
             C(0) = R::rnorm(xy(t-1,0), allr(t-1));
-            C(1) = R::rnorm(xy(t-1,1), allr(t-1));            
+            C(1) = R::rnorm(xy(t-1,1), allr(t-1));
         } else {
             d = sqrt(R::runif(0,allr(t-1)*allr(t-1)));
             a = R::runif(-M_PI,M_PI);

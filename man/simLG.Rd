@@ -11,14 +11,14 @@ simLG(nbObs, beta, allr, covlist, xy0 = NULL, norm = FALSE, npts = 100)
 
 \item{beta}{Parameters of the RSF}
 
-\item{allr}{Vector of availability radii for simulation}
+\item{allr}{Vector of availability radii (or standard deviations if norm=TRUE)}
 
 \item{covlist}{List of covariate rasters}
 
 \item{xy0}{Initial location (defaults to middle of map)}
 
 \item{norm}{Logical. If TRUE, a normal transition density is used (with 
-variance allr[1]^2).}
+variance given by allr^2).}
 
 \item{npts}{Number of potential endpoints to sample at each time step}
 }
