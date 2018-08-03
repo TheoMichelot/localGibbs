@@ -24,11 +24,11 @@ nllkLG_norm <- function(par, ID=NULL, xy, MCgrids, cov, lim, res)
     sigma <- exp(par[dim(cov)[3]+1])
     
     # scale samples to N(0,sigma^2)
-    gridc <- MCgrids$gridc * sigma
-    gridz <- MCgrids$gridz * sigma
+    gridc_sc <- MCgrids$gridc * sigma
+    gridz_sc <- MCgrids$gridz * sigma
     
-    nllk <- nllkLG_norm_rcpp(beta=beta, sigma=sigma, ID=ID, xy=xy, gridc=gridc, 
-                             gridz=gridz, cov=cov, lim=lim, res=res)$nllk    
+    nllk <- nllkLG_norm_rcpp(beta=beta, sigma=sigma, ID=ID, xy=xy, gridc=gridc_sc,
+                             gridz=gridz_sc, cov=cov, lim=lim, res=res)$nllk
     
     return(nllk)
 }
