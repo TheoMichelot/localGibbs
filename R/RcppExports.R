@@ -7,13 +7,14 @@
 #' @param sigma Standard deviation parameter
 #' @param ID Vector of track IDs
 #' @param xy Matrix of observed locations
+#' @param dt Vector of time intervals
 #' @param gridc Grid for Monte Carlo integration
 #' @param gridz Grid for Monte Carlo integration
 #' @param cov Array of covariates (one layer for each covariate)
 #' @param lim Limits of the covariate rasters.
 #' @param res Resolution of the covariate rasters.
-nllkLG_norm_rcpp <- function(beta, sigma, ID, xy, gridc, gridz, cov, lim, res) {
-    .Call('_localGibbs_nllkLG_norm_rcpp', PACKAGE = 'localGibbs', beta, sigma, ID, xy, gridc, gridz, cov, lim, res)
+nllkLG_norm_rcpp <- function(beta, sigma, ID, xy, dt, gridc, gridz, cov, lim, res) {
+    .Call('_localGibbs_nllkLG_norm_rcpp', PACKAGE = 'localGibbs', beta, sigma, ID, xy, dt, gridc, gridz, cov, lim, res)
 }
 
 #' Negative log-likelihood for the local Gibbs model (C++)

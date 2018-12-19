@@ -9,6 +9,7 @@
 //' @param sigma Standard deviation parameter
 //' @param ID Vector of track IDs
 //' @param xy Matrix of observed locations
+//' @param dt Vector of time intervals
 //' @param gridc Grid for Monte Carlo integration
 //' @param gridz Grid for Monte Carlo integration
 //' @param cov Array of covariates (one layer for each covariate)
@@ -16,7 +17,7 @@
 //' @param res Resolution of the covariate rasters.
 // [[Rcpp::export]]
 Rcpp::List nllkLG_norm_rcpp(arma::vec beta, double sigma, arma::vec ID, arma::mat xy,
-                            arma::mat gridc, arma::mat gridz, arma::cube& cov, 
+                            arma::vec dt, arma::mat gridc, arma::mat gridz, arma::cube& cov, 
                             arma::vec lim, arma::vec res)
 {
     int nbObs = xy.n_rows;
@@ -35,17 +36,23 @@ Rcpp::List nllkLG_norm_rcpp(arma::vec beta, double sigma, arma::vec ID, arma::ma
         // no contribution if first location of a track or if missing data
         if(ID(t)==ID(t-1) & arma::is_finite(steps(t-1))) {
             
+            double scaled_sigma = sqrt(dt(t-1)) * sigma;
+            
+            // scale samples to N(0,sigma^2)
+            arma::mat gridc_sc = gridc * scaled_sigma;
+            arma::mat gridz_sc = gridz * scaled_sigma;
+            
             arma::mat gridc_tr(nc,2);
-            gridc_tr.col(0) = gridc.col(0) + xy(t-1,0);
-            gridc_tr.col(1) = gridc.col(1) + xy(t-1,1);
+            gridc_tr.col(0) = gridc_sc.col(0) + xy(t-1,0);
+            gridc_tr.col(1) = gridc_sc.col(1) + xy(t-1,1);
             
             double sumc = 0;
             int count = nc;
             for(int ic=0; ic<nc; ic++) {
                 
                 arma::mat gridz_tr(nz,2);
-                gridz_tr.col(0) = gridz.col(0) + gridc_tr(ic,0);
-                gridz_tr.col(1) = gridz.col(1) + gridc_tr(ic,1);
+                gridz_tr.col(0) = gridz_sc.col(0) + gridc_tr(ic,0);
+                gridz_tr.col(1) = gridz_sc.col(1) + gridc_tr(ic,1);
                 
                 double sumz = 0;
                 for(int iz=0; iz<nz; iz++) {
@@ -53,8 +60,8 @@ Rcpp::List nllkLG_norm_rcpp(arma::vec beta, double sigma, arma::vec ID, arma::ma
                 }
                 
                 if(sumz>0) {
-                    sumc = sumc + R::dnorm(xy(t,0), gridc_tr(ic,0), sigma, 0) * 
-                        R::dnorm(xy(t,1), gridc_tr(ic,1), sigma, 0) / sumz;    
+                    sumc = sumc + R::dnorm(xy(t,0), gridc_tr(ic,0), scaled_sigma, 0) * 
+                        R::dnorm(xy(t,1), gridc_tr(ic,1), scaled_sigma, 0) / sumz;    
                 } else {
                     count = count - 1;
                 }

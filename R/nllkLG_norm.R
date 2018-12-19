@@ -10,11 +10,15 @@
 #' @param res Resolution of the covariate rasters.
 #' 
 #' @export
-nllkLG_norm <- function(par, ID=NULL, xy, MCgrids, cov, lim, res)
+nllkLG_norm <- function(par, ID=NULL, xy, dt=NULL, MCgrids, cov, lim, res)
 {
     # consider unique track if ID==NULL
     if(is.null(ID))
         ID <- rep(1,nrow(xy))
+    
+    # consider regular time intervals if dt==NULL
+    if(is.null(dt))
+        dt <- rep(1, nrow(xy)-1)
     
     if(length(par)!=dim(cov)[3]+1)
         stop("Length of 'par' incompatible with dimensions of 'cov'")
@@ -23,12 +27,8 @@ nllkLG_norm <- function(par, ID=NULL, xy, MCgrids, cov, lim, res)
     beta <- par[1:dim(cov)[3]]
     sigma <- exp(par[dim(cov)[3]+1])
     
-    # scale samples to N(0,sigma^2)
-    gridc_sc <- MCgrids$gridc * sigma
-    gridz_sc <- MCgrids$gridz * sigma
-    
-    nllk <- nllkLG_norm_rcpp(beta=beta, sigma=sigma, ID=ID, xy=xy, gridc=gridc_sc,
-                             gridz=gridz_sc, cov=cov, lim=lim, res=res)$nllk
+    nllk <- nllkLG_norm_rcpp(beta=beta, sigma=sigma, ID=ID, xy=xy, dt=dt, gridc=MCgrids$gridc,
+                             gridz=MCgrids$gridz, cov=cov, lim=lim, res=res)$nllk
     
     return(nllk)
 }
